@@ -1356,7 +1356,7 @@ button.selected {
 }
 
 #player-sprite {
-
+  transform: scaleX(-1);
 }
 
 .battle-portrait {
@@ -1523,4 +1523,25 @@ button.selected {
   border-radius: 8px;
   overflow: hidden;
   margin-bottom: 5px;
+}
+
+@keyframes idleHover {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0); }
+}
+
+/* Attach this to Ashroot */
+#enemy-sprite {
+  animation: idleHover 3s ease-in-out infinite;
+}
+@keyframes vineSway {
+  0% { transform: rotate(0deg); }
+  50% { transform: rotate(3deg); }
+  100% { transform: rotate(0deg); }
+}
+
+/* Attach this to Ashroot */
+#enemy-sprite {
+  animation: vineSway 4s ease-in-out infinite;
 }

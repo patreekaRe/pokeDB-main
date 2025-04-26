@@ -151,7 +151,7 @@ document.addEventListener("DOMContentLoaded", function () {
       name: "Ashroot 🌿",
       type: "Grass",
       hp: 60,
-      sprite: "https://i.imgur.com/ZsKTW3A.png",
+      sprite: "img/sprites/Ashroot.png",
       description: "A sneaky vine beast that drains XP."
     },
     blazeclaw: {
@@ -645,7 +645,7 @@ function partyRed() {
   document.body.style.backgroundColor = 'rgb(161, 14, 14)';
   const img = document.getElementById('pokemonImg');
   img.src = 'https://media.tenor.com/hLfJG3B_ZLIAAAAj/charmander-gif-pokemon.gif';
-  playerSpriteUrl = 'https://img.pokemondb.net/sprites/black-white/anim/back-normal/charmander.gif';
+  playerSpriteUrl = 'https://img.pokemondb.net/sprites/black-white/anim/normal/charmander.gif';
   img.style.display = 'block';
   img.style.top = '373px';
   img.style.left = '50%';            // Keep centered anchor
