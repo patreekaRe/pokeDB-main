@@ -994,6 +994,7 @@ button.selected {
   align-items: center;
   padding: 2rem;
   padding-top: 0px;
+  margin-top: 250px;
   gap: 1rem;
 }
 
@@ -1355,7 +1356,7 @@ button.selected {
 }
 
 #player-sprite {
-  transform: scaleX(-1); /* 🧠 Flips horizontally */
+
 }
 
 .battle-portrait {
@@ -1507,4 +1508,19 @@ button.selected {
   z-index: 999;
   overflow-x: auto;
   overflow-y: hidden;
+}
+
+#health-bar {
+  height: 16px;
+  background-color: #4caf50; /* Default green */
+  transition: width 0.3s ease;
+  border-radius: 8px;
+}
+#health-bar-container {
+  width: 100%;
+  height: 16px;
+  background-color: #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 5px;
 }

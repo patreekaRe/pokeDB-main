@@ -47,6 +47,7 @@ document.addEventListener("DOMContentLoaded", function () {
   let playerEnergy = 3;
   let enemyHP = 0; // Will be set when the enemy appears
   let isPlayerTurn = true;
+  let playerSpriteUrl = "";
 
   // function createCardElement(card) {
   //   const cardDiv = document.createElement('div');
@@ -316,6 +317,7 @@ document.addEventListener("DOMContentLoaded", function () {
           drawPile = [...discardPile];
           discardPile = [];
           shuffleArray(drawPile);
+          updatePileCounts(); // ✅ add here
         } else {
           console.log("⚠️ No cards left to draw!");
           break;
@@ -326,6 +328,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const cardElement = createCardElement(drawnCard);
       cardElement.classList.add("card-drop");
       battleHand.appendChild(cardElement);
+      updatePileCounts();
     }
   }
   
@@ -340,6 +343,26 @@ document.addEventListener("DOMContentLoaded", function () {
   
   function updateEnergyDisplay() {
     document.getElementById('battle-player-energy').textContent = playerEnergy;
+  }
+
+  function updatePileCounts() {
+    document.getElementById("draw-pile-count").textContent = drawPile.length;
+    document.getElementById("discard-pile-count").textContent = discardPile.length;
+  }
+
+  function updateHealthBar() {
+    const healthBar = document.getElementById('health-bar');
+    const healthPercent = Math.max(0, (playerHP / 100) * 100); // Cap at 0%
+    healthBar.style.width = `${healthPercent}%`;
+  
+    // Optional: Change color based on % health (bonus polish!)
+    if (healthPercent > 60) {
+      healthBar.style.backgroundColor = '#4caf50'; // Green
+    } else if (healthPercent > 30) {
+      healthBar.style.backgroundColor = '#ff9800'; // Orange
+    } else {
+      healthBar.style.backgroundColor = '#f44336'; // Red
+    }
   }
   
   function playCard(card) {
@@ -378,6 +401,7 @@ document.addEventListener("DOMContentLoaded", function () {
   
         // Remove from battle-hand
         battleHand.removeChild(cardDiv);
+        updatePileCounts(); // ✅ add here
         return; // Stop after removing one match
       }
     });
@@ -440,12 +464,12 @@ document.getElementById("enemy-hp").textContent = `HP: ${enemyHP}`;
 document.getElementById("enemy-description").textContent = enemy.description;
 document.getElementById("effectiveness-msg").innerHTML = effectivenessNote;
 
-document.getElementById("player-sprite").src = document.getElementById("pokemonImg").src;
+document.getElementById("player-sprite").src = playerSpriteUrl;
 ;
 
   // 🟢 Show player sprite on left
   const playerSprite = document.getElementById("player-sprite");
-  playerSprite.src = document.getElementById("pokemonImg").src;
+  playerSprite.src = playerSpriteUrl;
 
 
 
@@ -621,6 +645,7 @@ function partyRed() {
   document.body.style.backgroundColor = 'rgb(161, 14, 14)';
   const img = document.getElementById('pokemonImg');
   img.src = 'https://media.tenor.com/hLfJG3B_ZLIAAAAj/charmander-gif-pokemon.gif';
+  playerSpriteUrl = 'https://img.pokemondb.net/sprites/black-white/anim/back-normal/charmander.gif';
   img.style.display = 'block';
   img.style.top = '373px';
   img.style.left = '50%';            // Keep centered anchor
@@ -861,6 +886,7 @@ function enemyTurn() {
 
   document.getElementById('battle-player-hp').textContent = playerHP;
   document.getElementById('battle-player-block').textContent = playerBlock;
+  updateHealthBar();
 
   if (playerHP <= 0) {
     alert("💀 You were defeated...");
@@ -888,6 +914,7 @@ function discardHand() {
   });
 
   console.log(`🗂 Discarded hand. Discard pile now has ${discardPile.length} cards.`);
+  updatePileCounts(); // ✅ add here
 }
 
 
