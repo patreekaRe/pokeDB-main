@@ -81,7 +81,7 @@
 				  
 				  </div>
 			  </div>
-			<h2 style="text-align: center;">Charmander Starter Deck</h2>
+			<h2 id="deckbuilderButton" style="text-align: center;">Charmander Starter Deck</h2>
 
 			<!-- Floating cards row (scrolls left to right if overflow) -->
 
@@ -328,78 +328,66 @@
 
 		  </div>
 		
-		<div id="battle-screen" style="display: none;">
-			<div id="battle-hand" class="battle-hand">
-				<!-- Player's 5 battle cards will be cloned here -->
-			  </div>
+		  <div id="battle-screen" style="display: none;">
+
+			<!-- Task Bar (Top HUD) -->
 			<div id="battle-task-bar">
-
-				<!-- FLOATING PORTRAIT WRAPPER -->
-				<div class="battle-portrait-wrapper">
-					<div class="battle-portrait">
-					<div class="portrait-inner">
-						<img id="battle-player-portrait" src="https://media.tenor.com/hLfJG3B_ZLIAAAAj/charmander-gif-pokemon.gif" alt="Your Sprite">
-					</div>
-					</div>
-				</div>
-			  
-				<div class="battle-stats">
-					<div class="stat-block">
-						❤️ HP: 
-						<div id="health-bar-container">
-						  <div id="health-bar"></div>
-						</div>
-						<span id="battle-player-hp" class="health-text">100</span>
-					  </div>
-				  <div class="stat-block">
-					🛡️ Block: <span id="battle-player-block">0</span>
+			  <div class="battle-portrait-wrapper">
+				<div class="battle-portrait">
+				  <div class="portrait-inner">
+					<img id="battle-player-portrait" src="https://media.tenor.com/hLfJG3B_ZLIAAAAj/charmander-gif-pokemon.gif" alt="Your Sprite">
 				  </div>
-				  <div class="stat-block">
-					⚡ Energy: <span id="battle-player-energy">3</span>
-				  </div>
-				  <div class="stat-block">
-					📚 Draw: <span id="draw-pile-count">0</span> cards
-				  </div>
-				  <div class="stat-block">
-					🗂️ Discard: <span id="discard-pile-count">0</span> cards
-				  </div>
-				</div>
-			  
-				<div id="battle-items">
-				  <div class="item-slot"></div>
-				  <div class="item-slot"></div>
-				  <div class="item-slot"></div>
 				</div>
 			  </div>
-			  
-
-
-			<div class="battle-layout">
-				<div class="player-side">
-					<h3>You</h3>
-					<img id="player-sprite" src="https://img.pokemondb.net/sprites/black-white/anim/back-normal/charmander.gif" alt="Your Sprite">
-					<p id="player-hp">HP: 100</p>
-					<p id="player-block">Block: 0</p>
-					<p id="player-energy">Energy: 3</p>
+		  
+			  <div class="battle-stats">
+				<div class="stat-block">
+					❤️ HP: <span id="battle-player-hp">100</span>
+					<div id="health-bar-wrapper">
+					  <div id="health-bar"></div>
+					</div>
 				  </div>
-			  
-			  <div style="text-align:center; margin-top: 20px;">
+				<div class="stat-block">🛡️ Block: <span id="battle-player-block">0</span></div>
+				<div class="stat-block">⚡ Energy: <span id="battle-player-energy">3</span></div>
+				<div class="stat-block">📚 Draw: <span id="draw-pile-count">0</span> cards</div>
+				<div class="stat-block">🗂️ Discard: <span id="discard-pile-count">0</span> cards</div>
+			  </div>
+		  
+			  <div id="battle-items">
+				<div class="item-slot"></div>
+				<div class="item-slot"></div>
+				<div class="item-slot"></div>
+			  </div>
+		  
+			  <div class="end-turn-area">
 				<button id="end-turn-button" class="start-game-button">End Turn</button>
 			  </div>
-
-			  
-				<div class="enemy-side">
-				  <h3 id="enemy-name"></h3>
-				  <img id="enemy-sprite" src="" alt="Enemy Sprite">
-				  <p id="enemy-hp">HP:</p>
-				  <p id="enemy-description"></p>
-				</div>
-			  
-				<!-- <div id="battle-hand" class="battle-hand">
-
-				</div> -->
+			</div>
+		  
+			<!-- Battle Arena -->
+			<div class="battle-layout">
+			  <div class="player-side">
+				<img id="player-sprite" src="https://img.pokemondb.net/sprites/black-white/anim/back-normal/charmander.gif" alt="Your Pokémon">
 			  </div>
-		</div>
+		  
+			  <div class="battle-background">
+				<!-- Background arena here (Forest, etc.) -->
+			  </div>
+		  
+			  <div class="enemy-side">
+				<img id="enemy-sprite" src="img/sprites/Ashroot.png" alt="Enemy Sprite">
+				<h3 id="enemy-name">Ashroot</h3>
+				<p id="enemy-hp">HP: ???</p>
+				<p id="enemy-description">An ancient wild spirit born from the roots of the Lost Wilds.</p>
+			  </div>
+			</div>
+		  
+			<!-- Hand of Cards -->
+			<div id="battle-hand" class="battle-hand">
+			  <!-- Player's 5 battle cards will be dynamically inserted here -->
+			</div>
+		  
+		  </div>
 
 		<div id="battle-screen" style="display: none;">
   

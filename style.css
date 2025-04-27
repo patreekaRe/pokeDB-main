@@ -25,11 +25,12 @@ h2{
   border: 3px solid black;
   padding: 7px;
   border-radius: 10px;
-  margin-top: 50px;
+  margin-top: 0px;
   margin-left: 30px;
   background-color: rgb(255, 255, 255);
   cursor: pointer;
   transition: transform 0.2s ease, background-color 0.2s ease;
+
 }
 h2:hover {
   transform: scale(1.1);
@@ -375,7 +376,7 @@ button.selected {
   top: 4px;
   right: 4px;
   font-size: 16px;
-  color: white;
+  color: rgb(255, 255, 255);
   text-shadow: 1px 1px 3px black;
 }
 
@@ -565,8 +566,8 @@ button.selected {
 }
 
 .card-back {
-  background: #222;
-  color: white;
+  background: #222222;
+  color: rgb(255, 255, 255);
   transform: rotateY(180deg);
 }
 
@@ -1006,7 +1007,6 @@ button.selected {
 
 #player-sprite,
 #enemy-sprite {
-  max-width: 150px;
   height: auto;
 }
 
@@ -1042,7 +1042,7 @@ button.selected {
   padding: 1rem 2rem;
   border-radius: 12px;
   width: 100%;
-  max-width: 1200px;
+  max-width: 720px;
 }
 
 /* Subtle background tints */
@@ -1050,19 +1050,19 @@ button.selected {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  background: linear-gradient(to right, #ffe5e5, #fff5f5);
+  background: linear-gradient(to right, #fff3dc00);
 }
 .defense-row {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  background: linear-gradient(to right, #e5f0ff, #f5faff);
+  /* background: linear-gradient(to right, #e5f0ff, #f5faff); */
 }
 .buff-row {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  background: linear-gradient(to right, #e5fff8, #f5fffd);
+  /* background: linear-gradient(to right, #e5fff8, #f5fffd); */
 }
 
 /* Card containers */
@@ -1072,7 +1072,7 @@ button.selected {
   border-radius: 12px;
   overflow: hidden;
   transition: transform 0.2s, box-shadow 0.2s;
-  background: white;
+  background: rgba(255, 255, 255, 0);
   cursor: grab;
 }
 
@@ -1174,8 +1174,8 @@ button.selected {
 #deck-slot-area {
   margin-top: 5px;
   padding: 1rem;
-  background: #f9f9f9;
-  border: 3px dashed #aaa;
+  background: #f9f9f918;
+  border: 3px dashed #aaaaaa6c;
   border-radius: 20px;
   min-height: 180px;
   width: fit-content;
@@ -1215,7 +1215,6 @@ button.selected {
   width: 100%;
   max-width: 1200px;
   margin-bottom: 300px;
-  background: linear-gradient(to right, #afadadd5, #585858); /* Subtle gray like other rows */
 }
 
 .start-button-wrapper {
@@ -1233,10 +1232,10 @@ button.selected {
   width: fit-content; 
   max-width: 100%;
   background: rgba(255, 255, 255, 0.5);
-  border: 3px dashed #999;
+  border: 3px dashed #99999900;
   border-radius: 14px;
   padding: 16px;
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0);
   text-align: center;
   z-index: 999;
   transition: all 0.3s ease; 
@@ -1356,7 +1355,11 @@ button.selected {
 }
 
 #player-sprite {
-  transform: scaleX(-1);
+  width: 100px; /* or whatever size you want */
+  height: auto;
+  transform: scale(1.8); /* 🔥 Scales the sprite 1.8x larger */
+  transform-origin: center center; /* 📍 keeps it scaling from the middle */
+  /* transform: scaleX(-1); */
 }
 
 .battle-portrait {
@@ -1502,12 +1505,13 @@ button.selected {
   align-items: flex-end;
   gap: 12px;
   padding: 10px;
-  background: rgba(255, 255, 255, 0.7);
-  border-top: 3px solid black;
+  /* background: rgba(255, 255, 255, 0); */
+  /* border-top: 3px solid black; */
   border-radius: 12px 12px 0 0;
   z-index: 999;
   overflow-x: auto;
   overflow-y: hidden;
+  opacity: (100%);
 }
 
 #health-bar {
@@ -1544,4 +1548,187 @@ button.selected {
 /* Attach this to Ashroot */
 #enemy-sprite {
   animation: vineSway 4s ease-in-out infinite;
+}
+
+#player-sprite {
+  width: 95px;
+  height: auto;
+  transform: scale(1.8) translateY(-20px); /* Move up 20px too */
+  transition: transform 0.3s ease; /* Smooth scaling */
+  transform-origin: center center;
+  /* transform: scaleX(-1); */
+}
+
+#drop-zone {
+  background: rgba(255, 255, 255, 0);
+}
+
+.battle-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('img/backgrounds/wild-clearing.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: -1; /* behind player and enemy sprites */
+  opacity: 1; /* adjust later for atmospheric effects if needed */
+  transition: opacity 3s ease-in-out;
+}
+
+.battle-layout {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 200px; /* push arena down */
+  padding: 0 10%;
+  position: relative;
+  z-index: 2;
+}
+
+.player-side, .enemy-side {
+  flex: 0 0 40%;
+  text-align: center;
+}
+
+/* #player-sprite {
+  width: 120px;
+  transform: scale(2) rotate(-10deg) translateY(-30px);
+  transform-origin: center;
+  position: absolute;
+  top: 200px;
+  left: 200px;
+} */
+
+#enemy-sprite {
+  width: 140px;
+  transform: scale(2) rotate(10deg) translateY(-30px);
+  transform-origin: center;
+}
+
+.battle-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('https://wallpaperaccess.com/full/3541806.jpg'); /* Example Forest Background */
+  background-size: cover;
+  background-position: center;
+  opacity: 0.3; /* faint, behind battle */
+  z-index: -1;
+}
+
+#battle-hand {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  gap: 20px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0);
+  border-radius: 20px 20px 0 0;
+  z-index: 999;
+}
+
+/* Make the cards arc slightly */
+#battle-hand .card-container:nth-child(1) { transform: rotate(-15deg) translateY(20px); }
+#battle-hand .card-container:nth-child(2) { transform: rotate(-7deg) translateY(10px); }
+#battle-hand .card-container:nth-child(3) { transform: rotate(0deg) translateY(0); }
+#battle-hand .card-container:nth-child(4) { transform: rotate(7deg) translateY(10px); }
+#battle-hand .card-container:nth-child(5) { transform: rotate(15deg) translateY(20px); }
+
+.battle-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('img/backgrounds/wild-clearing.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: -1; /* make sure it's behind the player and enemy */
+  opacity: 1;  /* you can adjust opacity if you want misty vibes later */
+  transition: opacity 1s ease-in-out;
+}
+
+
+/* battle screen positioning */
+#player-sprite {
+  position: fixed;
+  bottom: 25%;
+  left: 20%;
+  width: 175px;
+  height: auto;
+  transform: translateY(50%);
+}
+
+#enemy-sprite {
+  position: fixed;
+  bottom: 29%;
+  right: 50%;  /* lock enemy towards right */
+  max-width: 300px;
+  height: auto;
+  transform: translateY(50%); /* optional */
+}
+
+#health-bar-wrapper {
+  width: 100%;
+  max-width: 200px;
+  height: 14px;
+  background-color: #ddd;
+  border: 2px solid black;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-top: 8px;
+}
+
+#health-bar {
+  height: 100%;
+  width: 100%;
+  background-color: #4caf50; /* Starts green */
+  transition: width 0.5s ease, background-color 0.5s ease;
+}
+
+#deck-builder {
+  position:relative;
+  top: px;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('img/backgrounds/charmander-deckbuilder-bg.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;mar
+  z-index: -1; /* make sure it's behind the player and enemy */
+  opacity: 1;  /* you can adjust opacity if you want misty vibes later */
+  transition: opacity 1s ease-in-out;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  min-height: 100vh; /* allow scrollable vertical */
+  overflow-x: hidden; /* disable side scroll */
+}
+
+#deckbuilderButton{
+  margin-top: 60px; /* or 80px, or whatever you want */
+  margin-left: 64px;
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  padding: 10px 20px;
+  border: 3px solid black;
+  border-radius: 12px;
+  background: white;
+  display: inline-block;
 }

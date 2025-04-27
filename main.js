@@ -134,17 +134,62 @@ document.addEventListener("DOMContentLoaded", function () {
   
     deckCards.forEach(cardContainer => {
       const name = cardContainer.querySelector('h3')?.textContent || "Unknown";
-      const type = cardContainer.querySelector('p')?.textContent || "attack"; // fallback
+      const type = cardContainer.querySelector('p')?.textContent.toLowerCase() || "attack";
+  
+      let cost = 1;   // Default energy cost
+      let damage = 0; // Default no damage
+      let block = 0;  // Default no block
+      let buff = null; // Default no buff
+  
+      // 🎯 Set proper values based on card name
+      if (name === "Ember") {
+        cost = 1;
+        damage = 6;
+      } else if (name === "Ember+") {
+        cost = 1;
+        damage = 10;
+      } else if (name === "Scorch") {
+        cost = 1;
+        damage = 8;
+        buff = "burn"; // optional burn status you can add later
+      } else if (name === "Flare Up") {
+        cost = 2;
+        damage = 20;
+      } else if (name === "Block") {
+        cost = 1;
+        block = 5;
+      } else if (name === "Defense") {
+        cost = 1;
+        block = 10;
+      } else if (name === "Quick Guard") {
+        cost = 1;
+        block = 7;
+      } else if (name === "Smokescreen") {
+        cost = 0;
+        buff = "enemy miss"; // Decrease enemy accuracy
+      } else if (name === "Tailwind") {
+        cost = 0;
+        buff = "speed"; // Extra energy next turn
+      } else if (name === "Heat Up") {
+        cost = 0;
+        buff = "attack up"; // Boost attack
+      } else {
+        cost = 1;
+      }
   
       playerDeck.push({
         name: name,
-        type: type.toLowerCase(),
-        cost: 1
+        type: type,
+        cost: cost,
+        damage: damage,
+        block: block,
+        buff: buff
       });
     });
   
-    console.log("✅ Rebuilt playerDeck:", playerDeck);
+    console.log("✅ Rebuilt playerDeck with correct stats:", playerDeck);
   }
+  
 
   const enemies = {
     ashroot: {
@@ -158,14 +203,14 @@ document.addEventListener("DOMContentLoaded", function () {
       name: "Blazeclaw 🔥",
       type: "Fire",
       hp: 80,
-      sprite: "https://example.com/blazeclaw.png",
+      sprite: "img/sprites/Blazeclaw.png",
       description: "An aggressive predator with blazing strikes."
     },
     aquaeye: {
       name: "Aquaeye 💧",
       type: "Water",
       hp: 70,
-      sprite: "https://example.com/aquaeye.png",
+      sprite: "img/sprites/Aquaeye.png",
       description: "This enemy floods the battlefield and hides behind waves."
     }
 
@@ -272,6 +317,7 @@ document.addEventListener("DOMContentLoaded", function () {
     } else if (hasChosen) {
       document.getElementById("starter-screen").style.display = "none";
       document.getElementById("deck-builder").style.display = "block";
+      document.body.style.backgroundColor = 'rgb(255, 228, 203)'
     }
     
   
@@ -350,21 +396,37 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("discard-pile-count").textContent = discardPile.length;
   }
 
+  // function updateHealthBar() {
+  //   const healthBar = document.getElementById('health-bar');
+  //   const healthPercent = Math.max(0, (playerHP / 100) * 100); // Cap at 0%
+  //   healthBar.style.width = `${healthPercent}%`;
+  
+  //   // Optional: Change color based on % health (bonus polish!)
+  //   if (healthPercent > 60) {
+  //     healthBar.style.backgroundColor = '#4caf50'; // Green
+  //   } else if (healthPercent > 30) {
+  //     healthBar.style.backgroundColor = '#ff9800'; // Orange
+  //   } else {
+  //     healthBar.style.backgroundColor = '#f44336'; // Red
+  //   }
+  // }
+  
   function updateHealthBar() {
     const healthBar = document.getElementById('health-bar');
     const healthPercent = Math.max(0, (playerHP / 100) * 100); // Cap at 0%
+  
     healthBar.style.width = `${healthPercent}%`;
   
-    // Optional: Change color based on % health (bonus polish!)
+    // 🎨 Dynamic color shift based on health %
     if (healthPercent > 60) {
       healthBar.style.backgroundColor = '#4caf50'; // Green
     } else if (healthPercent > 30) {
-      healthBar.style.backgroundColor = '#ff9800'; // Orange
+      healthBar.style.backgroundColor = '#ff9800'; // Orange/Yellow
     } else {
       healthBar.style.backgroundColor = '#f44336'; // Red
     }
   }
-  
+
   function playCard(card) {
     if (!isPlayerTurn) return;
   
@@ -388,6 +450,7 @@ document.addEventListener("DOMContentLoaded", function () {
       playerEnergy += 1; 
       updateEnergyDisplay();
     }
+    
   
     // 🆕 Remove the card from the hand visually
     const battleHand = document.getElementById('battle-hand');
@@ -459,6 +522,7 @@ if (typeEffectiveness[playerType]) {
 
 document.getElementById("enemy-name").textContent = `Enemy: ${enemy.name}`;
 document.getElementById("enemy-sprite").src = enemy.sprite;
+
 // document.getElementById("enemy-hp").textContent = `HP: ${scaledHP}`;
 document.getElementById("enemy-hp").textContent = `HP: ${enemyHP}`;
 document.getElementById("enemy-description").textContent = enemy.description;
@@ -645,7 +709,7 @@ function partyRed() {
   document.body.style.backgroundColor = 'rgb(161, 14, 14)';
   const img = document.getElementById('pokemonImg');
   img.src = 'https://media.tenor.com/hLfJG3B_ZLIAAAAj/charmander-gif-pokemon.gif';
-  playerSpriteUrl = 'https://img.pokemondb.net/sprites/black-white/anim/normal/charmander.gif';
+  playerSpriteUrl = 'https://img.pokemondb.net/sprites/black-white/anim/back-normal/charmander.gif';
   img.style.display = 'block';
   img.style.top = '373px';
   img.style.left = '50%';            // Keep centered anchor
